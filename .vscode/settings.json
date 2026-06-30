@@ -1,0 +1,10 @@
+// тобы ide понимала tailwindCSS
+{
+  "tailwindCSS.includeLanguages": {
+    "css": "tailwindcss"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.classRegex": []
+}
