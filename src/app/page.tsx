@@ -1,8 +1,9 @@
 import { getHomePageData } from '@/lib/data/home-page';
+import { UserSection } from '@/modules/home/components/UserSection/UserSection';
 import Image from 'next/image';
 
 export default async function Home() {
-  const { trips } = await getHomePageData();
+  const { trips, users } = await getHomePageData();
   console.log('trips: ', trips.length);
   return (
     <div className='flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black'>
@@ -17,6 +18,8 @@ export default async function Home() {
             Нет поездок
           </p>
         )}
+
+        <UserSection users={users} />
       </main>
     </div>
   );
