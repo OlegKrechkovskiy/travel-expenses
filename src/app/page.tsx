@@ -14,8 +14,8 @@ export default async function Home() {
         <p className='mt-2'>Выбрать поездку или создать новую</p>
 
         {trips.length === 0 && (
-          <p className='mt-8 rounded-lg border border-dashed border-border-input dark:border-border-input-dark bg-bg-card dark:bg-bg-card-dark p-6 text-text-muted dark:text-text-muted-dark'>
-            Нет поездок
+          <p className='mt-8 p-4 w-full text-sm border rounded-lg border-border-default dark:border-border-default-dark'>
+            Пока нет поездок...
           </p>
         )}
 
