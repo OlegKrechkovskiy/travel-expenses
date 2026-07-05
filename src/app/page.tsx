@@ -1,4 +1,5 @@
 import { getHomePageData } from '@/lib/data/home-page';
+import { AddTripSection } from '@/modules/home/components/AddTripSection/AddTripSection';
 import { UserSection } from '@/modules/home/components/UserSection/UserSection';
 import Image from 'next/image';
 
@@ -7,8 +8,8 @@ export default async function Home() {
   console.log('trips length: ', trips.length);
   console.log('users length: ', users.length);
   return (
-    <div className='flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black'>
-      <main className='flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start'>
+    <div className='flex flex-col flex-1 items-center justify-center font-sans'>
+      <main className='flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 sm:items-start'>
         <h1 className='text-2xl font-semibold tracking-tight text-text-primary dark:text-text-primary-dark'>
           Поездки
         </h1>
@@ -19,6 +20,8 @@ export default async function Home() {
             Пока нет поездок...
           </p>
         )}
+
+        <AddTripSection users={users} />
 
         <UserSection users={users} />
       </main>
