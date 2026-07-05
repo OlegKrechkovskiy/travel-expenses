@@ -15,10 +15,21 @@ export default async function Home() {
         </h1>
         <p className='mt-2'>Выбрать поездку или создать новую</p>
 
-        {trips.length === 0 && (
+        {trips.length === 0 ? (
           <p className='mt-8 p-4 w-full text-sm border rounded-lg border-border-default dark:border-border-default-dark'>
             Пока нет поездок...
           </p>
+        ): (
+          <ul className='flex flex-col gap-4 w-full mt-8'>
+            {trips.map((trip) => (
+              <li
+                key={trip.id}
+                className='flex items-center justify-between gap-4 w-full border border-border-default dark:border-border-default-dark rounded-lg p-4'
+              >
+                <span className='capitalize'>{trip.title}</span>
+              </li>
+            ))}
+          </ul>
         )}
 
         <AddTripSection users={users} />

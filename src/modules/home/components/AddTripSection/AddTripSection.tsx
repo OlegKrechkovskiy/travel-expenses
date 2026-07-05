@@ -2,6 +2,7 @@
 
 import { HomeUser } from '@/lib/data/home-page';
 import { useCallback, useRef, useState } from 'react';
+import { AddTripForm } from '@/modules/home/components/AddTripForm/AddTripForm';
 
 type AddTripSectionProps = {
   users: HomeUser[];
@@ -34,9 +35,7 @@ export function AddTripSection({ users }: AddTripSectionProps) {
         style={{ display: isOpen ? 'block' : 'none' }}
         className='mt-6 flex justify-center'
       >
-        {users.map((user) => (
-          <p key={user.id}>{user.name}</p>
-        ))}
+        <AddTripForm users={users} onCancel={toggle} />
       </div>
     </section>
   );
