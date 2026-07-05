@@ -18,6 +18,11 @@ export type HomeUser = {
   name: string;
 };
 
+export type HomeTrip = {
+  id: string;
+  title: string;
+};
+
 /**
  * Получает всех пользователей из БД, сортирует по имени (А→Я).
  *
@@ -39,20 +44,27 @@ export async function getAllUsers(): Promise<HomeUser[]> {
   }));
 }
 
+export async function getAllTrips(): Promise<HomeTrip[]> {
+  const trips = await getTripsCollection();
+  const list = await trips.find().toArray();
+
+  return list.map((trip) => ({
+    id: trip._id.toString(),
+    title: trip.title,
+  }));
+};
+
 /**
  * Собирает все данные для главной страницы.
- *
- * Сейчас возвращает any для trips — потому что тип Trip ещё не описан.
- * Когда появится — заменим any на Trip[].
  */
 export async function getHomePageData(): Promise<{
   users: HomeUser[];
-  trips: any;
+  trips: HomeTrip[];
 }> {
-  const tripsCollection = await getTripsCollection();
-  const users = await getAllUsers();
-
-  const trips = await tripsCollection.find().toArray();
+  const [trips, users] = await Promise.all([
+    getAllTrips(),
+    getAllUsers(),
+  ]);
 
   return { trips, users };
 }
