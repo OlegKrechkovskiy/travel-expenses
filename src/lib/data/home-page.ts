@@ -52,7 +52,7 @@ export async function getAllTrips(): Promise<HomeTrip[]> {
     id: trip._id.toString(),
     title: trip.title,
   }));
-};
+}
 
 /**
  * Собирает все данные для главной страницы.
@@ -61,10 +61,10 @@ export async function getHomePageData(): Promise<{
   users: HomeUser[];
   trips: HomeTrip[];
 }> {
-  const [trips, users] = await Promise.all([
-    getAllTrips(),
-    getAllUsers(),
-  ]);
+  const [trips, users] = await Promise.all([getAllTrips(), getAllUsers()]);
+
+  /* Для отладки — задержка по времени */
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return { trips, users };
 }

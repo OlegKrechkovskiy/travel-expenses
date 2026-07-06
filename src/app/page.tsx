@@ -10,10 +10,12 @@ export default async function Home() {
   return (
     <div className='flex flex-col flex-1 items-center justify-center font-sans'>
       <main className='flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 sm:items-start'>
-        <h1 className='text-2xl font-semibold tracking-tight text-text-primary dark:text-text-primary-dark'>
-          Поездки
-        </h1>
-        <p className='mt-2'>Выбрать поездку или создать новую</p>
+        <div className='flex flex-col items-left justify-center'>
+          <h1 className='text-2xl font-semibold tracking-tight text-text-primary dark:text-text-primary-dark'>
+            Поездки
+          </h1>
+          <p className='mt-2'>Выбрать поездку или создать новую</p>
+        </div>
 
         {trips.length === 0 ? (
           <p className='mt-8 p-4 w-full text-sm border rounded-lg border-border-default dark:border-border-default-dark'>
