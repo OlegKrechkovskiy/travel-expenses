@@ -24,6 +24,7 @@ export default async function Home() {
         ): (
           <ul className='flex flex-col gap-4 w-full mt-8'>
             {trips.map((trip) => (
+              /* вынести в компонент TripsItem */
               <li
                 key={trip.id}
                 className='flex items-center justify-between gap-4 w-full border border-border-default dark:border-border-default-dark rounded-lg p-4'

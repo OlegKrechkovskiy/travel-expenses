@@ -67,3 +67,31 @@ export async function createTrip(
 
   return null;
 }
+
+/*
+ * 1. Удаляем поездку
+ * 2. Перенаправляем на главную
+ * 3. Сбрасываем кеш
+ */
+
+export async function deleteTrip(
+  _prevState: TripFormState,
+  formData: FormData,
+): Promise<TripFormState> {
+  const tripId = String(formData.get('tripId') || '');
+  // ObjectId.isValid — встроенная проверка MongoDB
+  if (!ObjectId.isValid(tripId)) {
+    return {
+      error: 'Некорректные данные',
+    };
+  }
+
+  // Преобразуем tripId в ObjectId чтобы MongoDB мог его использовать
+  const tripObjectId = new ObjectId(tripId);
+  const trips = await getTripsCollection();
+  const result = await trips.deleteOne({ _id: tripObjectId });
+  console.log('trip deleted >>> ', result);
+
+  revalidatePath('/');
+  redirect('/');
+}
