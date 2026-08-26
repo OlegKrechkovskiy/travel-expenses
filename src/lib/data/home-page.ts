@@ -54,17 +54,33 @@ export async function getAllTrips(): Promise<HomeTrip[]> {
   }));
 }
 
-/**
- * Собирает все данные для главной страницы.
- */
-export async function getHomePageData(): Promise<{
+export type HomePageData = {
   users: HomeUser[];
   trips: HomeTrip[];
-}> {
-  const [trips, users] = await Promise.all([getAllTrips(), getAllUsers()]);
+  /**
+   * true — не удалось связаться с БД.
+   * Вместо исключения отдаём пустые данные, а страница показывает предупреждение.
+   */
+  dbError: boolean;
+};
 
-  /* Для отладки — задержка по времени */
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
+/**
+ * Собирает все данные для главной страницы.
+ *
+ * Если БД недоступна (не удалось подключиться, сеть, таймаут и т.п.) —
+ * ловим ошибку и возвращаем пустые списки с флагом dbError,
+ * чтобы приложение не падало, а просто показало предупреждение.
+ */
+export async function getHomePageData(): Promise<HomePageData> {
+  try {
+    const [trips, users] = await Promise.all([getAllTrips(), getAllUsers()]);
 
-  return { trips, users };
+    /* Для отладки — задержка по времени */
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    return { trips, users, dbError: false };
+  } catch (error) {
+    console.error('Ошибка подключения к базе данных:', error);
+    return { trips: [], users: [], dbError: true };
+  }
 }
